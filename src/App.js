@@ -1,25 +1,41 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import "./App.css";
+import styled, { createGlobalStyle, css } from "styled-components";
+import Weather from "./weather/Weather";
 
+const GlobalStyle = createGlobalStyle`
+  *{  
+    box-sizing: border-box;
+  }
+  html {
+    font-size : 10px;
+  }
+  body {
+    width: 100%;
+    margin: 0;
+  }
+`;
 function App() {
+  const [cold, setCold] = useState();
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Wrapper className="App" cold={cold}>
+      <GlobalStyle />
+      <Weather setCold={setCold} />
+    </Wrapper>
   );
 }
-
 export default App;
+const Wrapper = styled.div`
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: burlywood;
+  ${(props) =>
+    props.cold &&
+    css`
+      background-color: skyblue;
+    `}
+`;
